@@ -4,7 +4,7 @@
 #
 Name     : pyaml
 Version  : 15.8.2
-Release  : 9
+Release  : 10
 URL      : https://pypi.python.org/packages/source/p/pyaml/pyaml-15.8.2.tar.gz
 Source0  : https://pypi.python.org/packages/source/p/pyaml/pyaml-15.8.2.tar.gz
 Summary  : PyYAML-based module to produce pretty and readable YAML-serialized data
