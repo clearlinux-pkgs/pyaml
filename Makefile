@@ -1,5 +1,5 @@
 PKG_NAME := pyaml
-URL := https://pypi.python.org/packages/source/p/pyaml/pyaml-15.8.2.tar.gz
-ARCHIVES :=
+URL := https://pypi.debian.net/pyaml/pyaml-16.12.2.tar.gz
+
 
 include ../common/Makefile.common
