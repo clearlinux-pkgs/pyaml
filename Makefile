@@ -1,5 +1,5 @@
 PKG_NAME := pyaml
-URL := https://pypi.debian.net/pyaml/pyaml-17.8.0.tar.gz
+URL = https://pypi.debian.net/pyaml/pyaml-17.12.1.tar.gz
 
 
 include ../common/Makefile.common
