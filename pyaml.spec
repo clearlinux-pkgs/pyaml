@@ -4,29 +4,23 @@
 #
 Name     : pyaml
 Version  : 17.12.1
-Release  : 31
+Release  : 32
 URL      : https://pypi.debian.net/pyaml/pyaml-17.12.1.tar.gz
 Source0  : https://pypi.debian.net/pyaml/pyaml-17.12.1.tar.gz
 Summary  : PyYAML-based module to produce pretty and readable YAML-serialized data
 Group    : Development/Tools
 License  : WTFPL
-Requires: pyaml-python3
-Requires: pyaml-license
-Requires: pyaml-python
+Requires: pyaml-license = %{version}-%{release}
+Requires: pyaml-python = %{version}-%{release}
+Requires: pyaml-python3 = %{version}-%{release}
 Requires: PyYAML
 BuildRequires : PyYAML
-BuildRequires : pbr
-BuildRequires : pip
-BuildRequires : python3-dev
-BuildRequires : setuptools
+BuildRequires : buildreq-distutils3
 
 %description
+pretty-yaml (or pyaml)
 ======================
-        
-        PyYAML-based python module to produce pretty and readable YAML-serialized data.
-        
-        This module is for serialization only, see `ruamel.yaml`_ module for literate
-        YAML parsing (keeping track of comments, spacing, line/column numbers of values, etc).
+PyYAML-based python module to produce pretty and readable YAML-serialized data.
 
 %package license
 Summary: license components for the pyaml package.
@@ -39,7 +33,7 @@ license components for the pyaml package.
 %package python
 Summary: python components for the pyaml package.
 Group: Default
-Requires: pyaml-python3
+Requires: pyaml-python3 = %{version}-%{release}
 
 %description python
 python components for the pyaml package.
@@ -49,6 +43,7 @@ python components for the pyaml package.
 Summary: python3 components for the pyaml package.
 Group: Default
 Requires: python3-core
+Provides: pypi(pyaml)
 
 %description python3
 python3 components for the pyaml package.
@@ -56,20 +51,29 @@ python3 components for the pyaml package.
 
 %prep
 %setup -q -n pyaml-17.12.1
+cd %{_builddir}/pyaml-17.12.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1530383095
-python3 setup.py build -b py3
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1583204381
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
+export MAKEFLAGS=%{?_smp_mflags}
+python3 setup.py build
 
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/pyaml
-cp COPYING %{buildroot}/usr/share/doc/pyaml/COPYING
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/pyaml
+cp %{_builddir}/pyaml-17.12.1/COPYING %{buildroot}/usr/share/package-licenses/pyaml/4263532d38628c3adc51dbce2419bc2b3cab4795
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -78,8 +82,8 @@ echo ----[ mark ]----
 %defattr(-,root,root,-)
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/pyaml/COPYING
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/pyaml/4263532d38628c3adc51dbce2419bc2b3cab4795
 
 %files python
 %defattr(-,root,root,-)
