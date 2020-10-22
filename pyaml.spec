@@ -4,7 +4,7 @@
 #
 Name     : pyaml
 Version  : 17.12.1
-Release  : 33
+Release  : 34
 URL      : https://pypi.debian.net/pyaml/pyaml-17.12.1.tar.gz
 Source0  : https://pypi.debian.net/pyaml/pyaml-17.12.1.tar.gz
 Summary  : PyYAML-based module to produce pretty and readable YAML-serialized data
@@ -18,9 +18,12 @@ BuildRequires : PyYAML
 BuildRequires : buildreq-distutils3
 
 %description
-pretty-yaml (or pyaml)
 ======================
-PyYAML-based python module to produce pretty and readable YAML-serialized data.
+        
+        PyYAML-based python module to produce pretty and readable YAML-serialized data.
+        
+        This module is for serialization only, see `ruamel.yaml`_ module for literate
+        YAML parsing (keeping track of comments, spacing, line/column numbers of values, etc).
 
 %package license
 Summary: license components for the pyaml package.
@@ -44,6 +47,7 @@ Summary: python3 components for the pyaml package.
 Group: Default
 Requires: python3-core
 Provides: pypi(pyaml)
+Requires: pypi(pyyaml)
 
 %description python3
 python3 components for the pyaml package.
@@ -58,12 +62,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1583204381
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1603399587
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
