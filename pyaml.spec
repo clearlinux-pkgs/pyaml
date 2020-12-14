@@ -4,7 +4,7 @@
 #
 Name     : pyaml
 Version  : 17.12.1
-Release  : 34
+Release  : 35
 URL      : https://pypi.debian.net/pyaml/pyaml-17.12.1.tar.gz
 Source0  : https://pypi.debian.net/pyaml/pyaml-17.12.1.tar.gz
 Summary  : PyYAML-based module to produce pretty and readable YAML-serialized data
